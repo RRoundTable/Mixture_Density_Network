@@ -142,9 +142,9 @@ class MDN_reg_class(Model):
             plt.plot(_x_test[:, 0], y_sample[:, i], 'rx')  # plot samples per each dimension
             for j in range(self.k):  # per each mixture, plot variance
                 idx = np.where(phi[:, j] < _pi_th)[0]
-                plt.fill_between(_x_test[idx, 0], mu[idx, i, j] - 2 * np.sqrt(var[idx, i, j]),
-                             mu[idx, i, j] + 2 * np.sqrt(var[idx, i, j]),
-                             facecolor='k', interpolate=True, alpha=0.05)
+                # plt.fill_between(_x_test[idx, 0], mu[idx, i, j] - 2 * np.sqrt(var[idx, i, j]),
+                #              mu[idx, i, j] + 2 * np.sqrt(var[idx, i, j]),
+                #              facecolor='k', interpolate=True, alpha=0.05)
                 idx = np.where(phi[:, j] > _pi_th)[0]
                 plt.fill_between(_x_test[idx, 0], mu[idx, i, j] - 2 * np.sqrt(var[idx, i, j]),
                              mu[idx, i, j] + 2 * np.sqrt(var[idx, i, j]),
