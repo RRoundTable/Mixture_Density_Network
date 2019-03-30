@@ -99,5 +99,6 @@ if __name__ =='__main__':
         optimizer = Adam(opt.lr)
     # plot_model(M, to_file='model.png')
     M(x_train[:100])
+    print(K.eval(M.layer_logvar(M.layer_hidden(x_train[:100]))))
     # train
-    train(M, optimizer, x_train, y_train, x_test, opt.num_epoch, opt.batch_size)
+    # train(M, optimizer, x_train, y_train, x_test, opt.num_epoch, opt.batch_size)

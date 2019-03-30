@@ -121,8 +121,11 @@ class MDN_reg_class(Model):
         net = self.layer_hidden(_x_test)
         phi = K.eval(self.layer_phi(net))  # [N,self.k]
         mu = K.eval(self.layer_mu(net))  # [N, self.y_dim, self.k]
-        var = K.eval(self.layer_logvar(net))  # [N, self.y_dim, self.k]
-
+        logvar = K.eval(self.layer_logvar(net))  # [N, self.y_dim, self.k]
+        if self.sig_max==0:
+            var=K.exp(logvar)
+        else:
+            var=self.sig_max*self.sig_rate*K.sigmoid(logvar)
         # plot per each output dimensions (self.y_dim)
         nr, nc = 1, self.y_dim
         if nc > 2: nc = 2  # Upper limit on the number of columns
