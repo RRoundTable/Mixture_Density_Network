@@ -10,6 +10,11 @@ import os
 from tensorflow.python.client import device_lib
 import argparse
 
+parser = argparse.ArgumentParser()
+parser.add_argument('-batch_size', type=int, default=256)
+parser.add_argument('-lr', type=float, default=0.0005, help='learning rate')
+parser.add_argument('-num_epoch', type=int, default=20000)
+opt = parser.parse_args()
 print(device_lib.list_local_devices())
 
 if not os.path.exists("./result"):
@@ -86,9 +91,8 @@ if __name__ =='__main__':
     print("[%s] instantiated" % (M.name))
 
     M.compile(optimizer="rmsprop", loss="mse")
-    lr = 0.0001
-    optimizer = Adam(lr)
+    optimizer = Adam(opt.lr)
     # plot_model(M, to_file='model.png')
     M(x_train[:100])
     # train
-    train(M, optimizer, x_train, y_train, x_test, 20000, 256)
+    train(M, optimizer, x_train, y_train, x_test, opt.num_epoch, opt.batch_size)
