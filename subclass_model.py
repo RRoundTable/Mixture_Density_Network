@@ -105,8 +105,8 @@ class MDN_reg_class(Model):
 
     def custom_loss(self, x_train,y_true):
         tfd_mog=self.call(x_train)
-        log_liks=tfd_mog.log_prob(y_true[0])
-        log_lik=K.mean(log_liks)
+        log_liks=tfd_mog.log_prob(y_true)
+        log_lik=tf.reduce_mean(log_liks)
         return -log_lik
 
     # # Plot results
@@ -199,7 +199,7 @@ class MDN_reg_class(Model):
     def phi_network(self):
         model = Sequential(name="PhiLayer")
         model.add(Dense(self.k, kernel_initializer=tfrni(stddev=0.01),
-                        bias_initializer=tfci(0),kernel_regularizer=l2(self.l2_reg_coef), dtype=tf.float32))
+                        bias_initializer=tfci(0),kernel_regularizer=l2(self.l2_reg_coef), dtype=tf.float32,activation='tanh'))
         # softmax 과정
         model.add(Softmax(axis=1))
         return model
@@ -208,14 +208,14 @@ class MDN_reg_class(Model):
         model=Sequential(name="Mu")
         model.add(Dense(self.k*self.y_dim, kernel_initializer=tfrni(stddev=0.01),
                         bias_initializer=tfrui(minval=-1, maxval=1),
-                        kernel_regularizer=l2(self.l2_reg_coef), dtype=tf.float32))
+                        kernel_regularizer=l2(self.l2_reg_coef), dtype=tf.float32, activation='tanh'))
         model.add(Reshape((self.y_dim, self.k)))
         return model
 
     def logvar_network(self):
         model=Sequential(name="LogVar")
         model.add(Dense(self.k*self.y_dim, kernel_initializer=tfrni(stddev=0.01),
-                        bias_initializer=tfci(0), kernel_regularizer=l2(self.l2_reg_coef),dtype=tf.float32))
+                        bias_initializer=tfci(0), kernel_regularizer=l2(self.l2_reg_coef),dtype=tf.float32, activation='tanh'))
         model.add(Reshape((self.y_dim, self.k)))
         return model
 

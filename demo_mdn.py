@@ -1,13 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
-from tensorflow.python.keras.optimizers import RMSprop
+from tensorflow.python.keras.optimizers import RMSprop, Adam
 # from model import MDN_reg_class
 from subclass_model import MDN_reg_class
 from util import gpu_sess,nzr
 from tensorflow.python.keras import backend as K
 import os
 from tensorflow.python.client import device_lib
+import argparse
 
 print(device_lib.list_local_devices())
 
@@ -79,14 +80,14 @@ x_test = nzr_x_train.get_nzdval(x_test) # normalize test input
 if __name__ =='__main__':
     K.set_session(sess)
     M = MDN_reg_class(_x_dim=1, _y_dim=2, _k=20, _hids=[128, 128], _actv=tf.nn.tanh,
-                      _sig_max=1.0, _SCHEDULE_SIG_MAX=True, _l2_reg_coef=1e-4,
+                      _sig_max=1.0, _SCHEDULE_SIG_MAX=True, _l2_reg_coef=1e-5,
                       _sess=sess, _VERBOSE=False)
 
     print("[%s] instantiated" % (M.name))
 
     M.compile(optimizer="rmsprop", loss="mse")
-    lr = 0.001
-    optimizer = RMSprop(lr)
+    lr = 0.0001
+    optimizer = Adam(lr)
     # plot_model(M, to_file='model.png')
     M(x_train[:100])
     # train
