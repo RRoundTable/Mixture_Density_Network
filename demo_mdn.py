@@ -22,7 +22,17 @@ np.random.seed(seed=1)
 sess = gpu_sess()
 
 
-def train(model,optimizer,x_train,y_train,x_test, epoch,batch_size):
+def train(model, optimizer, x_train, y_train, x_test, epoch, batch_size):
+    # placeholder
+    x_shape, y_shape = list(x_train.shape), list(y_train.shape)
+    x_shape[0], y_shape[0]= None, None
+    _x_batch=K.placeholder(name='x', shape=x_shape)
+    _y_batch=K.placeholder(name='y', shape=y_shape)
+
+    loss = model.custom_loss(_x_batch, _y_batch)
+    variables = model.variables
+    updates = optimizer.get_updates(params=variables,loss=loss)
+    _train=K.function([_x_batch,_y_batch],[loss],updates=updates)
     for e in range(epoch):
         n_train = x_train.shape[0]
         iter_rate_1to0 = np.exp(-4 * ((e + 1.0) / epoch) ** 2)
@@ -31,24 +41,12 @@ def train(model,optimizer,x_train,y_train,x_test, epoch,batch_size):
             model.sig_rate = iter_rate_0to1
         else:
             model.sig_rate = iter_rate_0to1
-        loss=0
-        total_loss=0
-        epoch_size=int(n_train/batch_size)
 
-        with tf.GradientTape() as tape:
-            r_idx = np.random.permutation(n_train)[:batch_size]
-            x_batch, y_batch = x_train[r_idx, :], y_train[r_idx, :]  # current batch
-            # Optimize the network
-            loss=model.custom_loss(x_batch,y_batch)
-        batch_loss=loss/float(epoch_size)
-        variables=model.variables
-        # gradient=optimizer.get_gradients(batch_loss, variables)
-        gradient=optimizer.get_gradients(batch_loss,variables)
-        # gradient=[g for x in gradient for g in x]
-        for i in range(len(gradient)):
-            model.weights[i]=model.weights[i]-gradient[i]*0.00001/(e/100)
-        # optimizer.apply_gradients(zip(gradient,variables)) # error
-        print("= epoch : {} loss {} =".format(e,K.eval(batch_loss)))
+        r_idx = np.random.permutation(n_train)[:batch_size]
+        x_batch, y_batch = x_train[r_idx, :], y_train[r_idx, :]  # current batch
+        # Optimize the network
+        loss=_train([x_batch,y_batch])
+        print("= epoch : {} loss {} =".format(e,loss))
 
         # plot result
         if e%100==0:
