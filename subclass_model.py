@@ -105,30 +105,10 @@ class MDN_reg_class(Model):
 
     def custom_loss(self, x_train,y_true):
         tfd_mog=self.call(x_train)
-        # tfd_mog = Lambda(self.distribution, output_shape=[self.y_dim], name="Mixture_density", trainable=False)(
-        #     [phi, mu, var])
-        log_liks=tfd_mog.log_prob(y_true)[0]
+        log_liks=tfd_mog.log_prob(y_true)
         log_lik=K.mean(log_liks)
         return -log_lik
 
-    # # Check parameters
-    # def check_params(self):
-    #     _g_vars = tf.global_variables()
-    #     self.g_vars = [var for var in _g_vars if '%s/' % (self.name) in var.name]
-    #     if self.VERBOSE:
-    #         print("==== Global Variables ====")
-    #     for i in range(len(self.g_vars)):
-    #         w_name = self.g_vars[i].name
-    #         w_shape = self.g_vars[i].get_shape().as_list()
-    #         if self.VERBOSE:
-    #             print("  [%02d/%d] Name:[%s] Shape:[%s]" % (i, len(self.g_vars), w_name, w_shape))
-    #     # Print layers
-    #     if self.VERBOSE:
-    #         print("==== Layers ====")
-    #         n_layers = len(self.layers)
-    #         for i in range(n_layers):
-    #             print("  [%0d/%d] %s %s" % (i, n_layers, self.layers[i].name, self.layers[i].shape))
-    #
     # # Plot results
     def plot_result(self, _x_test,epoch, _title='MDN result', _fontsize=18,
                     _figsize=(15, 5), _wspace=0.1, _hspace=0.05, _sig_rate=1.0, _pi_th=0.0,
@@ -202,38 +182,6 @@ class MDN_reg_class(Model):
             plt.ylabel('Output', fontsize=13)
             plt.title('[%d]-th dimension' % (i + 1), fontsize=13)
         plt.savefig("./variance/epoch_{}.png".format(epoch))
-    #
-    # # Train the mixture of density network
-    # def train(self, _x_train, _y_train, _x_test, _max_iter=10000, _batch_size=256, _pi_th=0.1,
-    #           _SHOW_EVERY=10, _figsize=(15, 5), _ylim=[-3, +3]):
-    #     n_train = _x_train.shape[0]
-    #     for iter in range(_max_iter):
-    #         iter_rate_1to0 = np.exp(-4 * ((iter + 1.0) / _max_iter) ** 2)
-    #         iter_rate_0to1 = 1 - iter_rate_1to0
-    #         if self.SCHEDULE_SIG_MAX:  # schedule sig_max
-    #             sig_rate = iter_rate_0to1
-    #         else:
-    #             sig_rate = iter_rate_0to1
-    #         sig_rate=np.array([sig_rate])
-    #         r_idx = np.random.permutation(n_train)[:_batch_size]
-    #         x_batch, y_batch = _x_train[r_idx, :], _y_train[r_idx, :]  # current batch
-    #         # Optimize the network
-    #         _, cost_val = self.sess.run([self.optm, self.cost],
-    #                                     feed_dict={self.x: x_batch, self.y: y_batch,
-    #                                                self.sig_rate: sig_rate})
-    #         # See progress
-    #         if ((iter % (_max_iter // _SHOW_EVERY)) == 0) | (iter == (_max_iter - 1)):
-    #             # Plot results
-    #             self.plot_result(_x_test=_x_test, _x_train=_x_train, _y_train=_y_train,
-    #                              _sig_rate=sig_rate, _pi_th=_pi_th,
-    #                              _title='[%d/%d] Black dots:training data / Red crosses:samples' % (iter, _max_iter),
-    #                              _fontsize=18, _figsize=_figsize, _ylim=_ylim)
-    #             self.plot_variances(_x_test=_x_test,
-    #                                 _title='blue:Var[E[y|x]] (epistemic) / red:E[Var[y|x]] (aleatoric)',
-    #                                 _figsize=_figsize)
-    #
-    #             # Print-out
-    #             print("[%03d/%d] cost:%.4f" % (iter, _max_iter, cost_val))
 
     # trainable layer
     def hidden_layer(self):

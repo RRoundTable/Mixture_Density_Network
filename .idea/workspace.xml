@@ -2,7 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05f54ad8-70f4-48a5-b455-4e832f041787" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_mdn.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo_mdn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo_mdn_reg.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/epoch_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/result/epoch_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/epoch_10000.png" beforeDir="false" afterPath="$PROJECT_DIR$/result/epoch_10000.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/epoch_12000.png" beforeDir="false" afterPath="$PROJECT_DIR$/result/epoch_12000.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/epoch_14000.png" beforeDir="false" afterPath="$PROJECT_DIR$/result/epoch_14000.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/epoch_16000.png" beforeDir="false" afterPath="$PROJECT_DIR$/result/epoch_16000.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/epoch_18000.png" beforeDir="false" afterPath="$PROJECT_DIR$/result/epoch_18000.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/epoch_2000.png" beforeDir="false" afterPath="$PROJECT_DIR$/result/epoch_2000.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/epoch_4000.png" beforeDir="false" afterPath="$PROJECT_DIR$/result/epoch_4000.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/epoch_6000.png" beforeDir="false" afterPath="$PROJECT_DIR$/result/epoch_6000.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/epoch_8000.png" beforeDir="false" afterPath="$PROJECT_DIR$/result/epoch_8000.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/subclass_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/subclass_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/variance/epoch_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/variance/epoch_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/variance/epoch_10000.png" beforeDir="false" afterPath="$PROJECT_DIR$/variance/epoch_10000.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/variance/epoch_12000.png" beforeDir="false" afterPath="$PROJECT_DIR$/variance/epoch_12000.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/variance/epoch_14000.png" beforeDir="false" afterPath="$PROJECT_DIR$/variance/epoch_14000.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/variance/epoch_16000.png" beforeDir="false" afterPath="$PROJECT_DIR$/variance/epoch_16000.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/variance/epoch_18000.png" beforeDir="false" afterPath="$PROJECT_DIR$/variance/epoch_18000.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/variance/epoch_2000.png" beforeDir="false" afterPath="$PROJECT_DIR$/variance/epoch_2000.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/variance/epoch_4000.png" beforeDir="false" afterPath="$PROJECT_DIR$/variance/epoch_4000.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/variance/epoch_6000.png" beforeDir="false" afterPath="$PROJECT_DIR$/variance/epoch_6000.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/variance/epoch_8000.png" beforeDir="false" afterPath="$PROJECT_DIR$/variance/epoch_8000.png" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,7 +35,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Mixture_Density_Network$demo_mdn.coverage" NAME="demo_mdn Coverage Results" MODIFIED="1553918331705" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Mixture_Density_Network$demo_mdn.coverage" NAME="demo_mdn Coverage Results" MODIFIED="1553938624558" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-1123068048">
@@ -38,95 +62,43 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="430" />
+          <entry key="py" value="525" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="430" />
+          <entry key="Python" value="525" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.45788914">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/README.md">
-              <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-                <state split_layout="SPLIT">
-                  <first_editor relative-caret-position="190">
-                    <caret line="10" selection-start-line="10" selection-end-line="10" />
-                  </first_editor>
-                  <second_editor />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/subclass_model.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="399">
-                  <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
-                  <folding>
-                    <element signature="e#0#18#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/demo_mdn_reg.ipynb">
-              <provider selected="true" editor-type-id="ipnb-editor">
-                <state>
-                  <selected id="0" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/model.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <folding>
-                    <element signature="e#0#18#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/demo_mdn.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1691">
-                  <caret line="89" column="20" selection-start-line="89" selection-start-column="20" selection-end-line="89" selection-end-column="20" />
-                  <folding>
-                    <element signature="e#0#18#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/subclass_model.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="551">
-                  <caret line="111" column="23" lean-forward="true" selection-start-line="111" selection-start-column="23" selection-end-line="111" selection-end-column="23" />
-                  <folding>
-                    <element signature="e#0#18#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/subclass_model.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="96" column="31" selection-start-line="96" selection-start-column="7" selection-end-line="96" selection-end-column="31" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/demo_mdn.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="90" column="41" selection-start-line="90" selection-start-column="41" selection-end-line="90" selection-end-column="41" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -135,8 +107,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/demo_mdn.py" />
         <option value="$PROJECT_DIR$/subclass_model.py" />
+        <option value="$PROJECT_DIR$/demo_mdn.py" />
       </list>
     </option>
   </component>
@@ -240,7 +212,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3298647" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3298647" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -290,19 +262,37 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="190">
-            <caret line="10" selection-start-line="10" selection-end-line="10" />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/demo_mdn_reg.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="266">
+          <caret line="92" column="41" lean-forward="true" selection-start-line="91" selection-start-column="3" selection-end-line="92" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="855">
+            <caret line="45" selection-start-line="45" selection-end-line="45" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/subclass_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="96" column="31" selection-start-line="96" selection-start-column="7" selection-end-line="96" selection-end-column="31" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -311,25 +301,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/demo_mdn.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1691">
-          <caret line="89" column="20" selection-start-line="89" selection-start-column="20" selection-end-line="89" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo_mdn_reg.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/subclass_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="111" column="23" lean-forward="true" selection-start-line="111" selection-start-column="23" selection-end-line="111" selection-end-column="23" />
+        <state relative-caret-position="442">
+          <caret line="90" column="41" selection-start-line="90" selection-start-column="41" selection-end-line="90" selection-end-column="41" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

@@ -5,10 +5,10 @@ from tensorflow.python.keras.optimizers import RMSprop
 # from model import MDN_reg_class
 from subclass_model import MDN_reg_class
 from util import gpu_sess,nzr
-from tensorflow.python.keras.utils.vis_utils import plot_model
 from tensorflow.python.keras import backend as K
 import os
 from tensorflow.python.client import device_lib
+
 print(device_lib.list_local_devices())
 
 if not os.path.exists("./result"):
@@ -88,5 +88,6 @@ if __name__ =='__main__':
     optimizer = RMSprop(lr)
     # plot_model(M, to_file='model.png')
     M(x_train[:100])
+    M.custom_loss(x_train[:100],y_train[:100])
     # train
-    train(M, optimizer, x_train, y_train, x_test, 20000, 256)
+    # train(M, optimizer, x_train, y_train, x_test, 20000, 256)
