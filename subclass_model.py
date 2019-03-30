@@ -140,15 +140,16 @@ class MDN_reg_class(Model):
             if _x_train is not None:
                 plt.plot(_x_train[:, 0], _y_train[:, i], 'k.')
             plt.plot(_x_test[:, 0], y_sample[:, i], 'rx')  # plot samples per each dimension
-            for j in range(self.k):  # per each mixture, plot variance
-                idx = np.where(phi[:, j] < _pi_th)[0]
-                # plt.fill_between(_x_test[idx, 0], mu[idx, i, j] - 2 * np.sqrt(var[idx, i, j]),
-                #              mu[idx, i, j] + 2 * np.sqrt(var[idx, i, j]),
-                #              facecolor='k', interpolate=True, alpha=0.05)
-                idx = np.where(phi[:, j] > _pi_th)[0]
-                plt.fill_between(_x_test[idx, 0], mu[idx, i, j] - 2 * np.sqrt(var[idx, i, j]),
-                             mu[idx, i, j] + 2 * np.sqrt(var[idx, i, j]),
-                             facecolor=colors[j], interpolate=True, alpha=0.3)
+            # for j in range(self.k):  # per each mixture, plot variance
+            #     idx = np.where(phi[:, j] < _pi_th)[0]
+            #     if idx:
+            #         plt.fill_between(_x_test[idx, 0], mu[idx, i, j] - 2 * np.sqrt(var[idx, i, j]),
+            #                      mu[idx, i, j] + 2 * np.sqrt(var[idx, i, j]),
+            #                      facecolor='k', interpolate=True, alpha=0.05)
+            #     idx = np.where(phi[:, j] > _pi_th)[0]
+            #     plt.fill_between(_x_test[idx, 0], mu[idx, i, j] - 2 * np.sqrt(var[idx, i, j]),
+            #                  mu[idx, i, j] + 2 * np.sqrt(var[idx, i, j]),
+            #                  facecolor=colors[j], interpolate=True, alpha=0.3)
             for j in range(self.k):  # per each mixture, plot mu
                 idx = np.where(phi[:, j] > _pi_th)[0]
                 plt.plot(_x_test[:, 0], mu[:, i, j], '-', color=[0.8, 0.8, 0.8], linewidth=1)
