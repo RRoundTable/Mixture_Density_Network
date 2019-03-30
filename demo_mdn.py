@@ -15,6 +15,7 @@ parser.add_argument('-batch_size', type=int, default=256)
 parser.add_argument('-lr', type=float, default=0.001, help='learning rate')
 parser.add_argument('-num_epoch', type=int, default=20000)
 parser.add_argument('-activation', type=str, default='tanh')
+parser.add_argument('-optimizer', type=str, default='rmsp')
 opt = parser.parse_args()
 print(device_lib.list_local_devices())
 
@@ -92,7 +93,10 @@ if __name__ =='__main__':
     print("[%s] instantiated" % (M.name))
 
     M.compile(optimizer="rmsprop", loss="mse")
-    optimizer = Adam(opt.lr)
+    if opt.optimizer =='rmsp':
+        optimizer = RMSprop(opt.lr)
+    else :
+        optimizer = Adam(opt.lr)
     # plot_model(M, to_file='model.png')
     M(x_train[:100])
     # train
