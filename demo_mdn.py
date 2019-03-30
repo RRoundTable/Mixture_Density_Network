@@ -88,6 +88,5 @@ if __name__ =='__main__':
     optimizer = RMSprop(lr)
     # plot_model(M, to_file='model.png')
     M(x_train[:100])
-    M.custom_loss(x_train[:100],y_train[:100])
     # train
-    # train(M, optimizer, x_train, y_train, x_test, 20000, 256)
+    train(M, optimizer, x_train, y_train, x_test, 20000, 256)
