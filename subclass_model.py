@@ -86,7 +86,11 @@ class MDN_reg_class(Model):
         net=self.layer_hidden(x)
         phi=self.layer_phi(net) # [N,self.k]
         mu=self.layer_mu(net) # [N, self.y_dim, self.k]
-        var=self.layer_logvar(net)  # [N, self.y_dim, self.k]
+        logvar=self.layer_logvar(net)  # [N, self.y_dim, self.k]
+        if self.sig_max==0:
+            var=K.exp(logvar)
+        else:
+            var=self.sig_max*self.sig_rate*K.sigmoid(logvar)
         phi=K.expand_dims(phi,1)
 
         EVs=K.sum(multiply([phi,var]),axis=2)
