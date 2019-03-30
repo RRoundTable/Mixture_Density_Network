@@ -46,7 +46,7 @@ def train(model, optimizer, x_train, y_train, x_test, epoch, batch_size):
         x_batch, y_batch = x_train[r_idx, :], y_train[r_idx, :]  # current batch
         # Optimize the network
         loss=_train([x_batch,y_batch])
-        print("= epoch : {} loss {} =".format(e,loss))
+        print("= epoch : {} loss {} =".format(e,loss[0]))
 
         # plot result
         if e%100==0:
