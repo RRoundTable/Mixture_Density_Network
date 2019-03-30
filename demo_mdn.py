@@ -90,4 +90,4 @@ if __name__ =='__main__':
     # plot_model(M, to_file='model.png')
     M(x_train[:100])
     # train
-    train(M, optimizer, x_train, y_train, x_test, 20000, 64)
+    train(M, optimizer, x_train, y_train, x_test, 20000, 256)

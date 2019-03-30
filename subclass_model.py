@@ -105,7 +105,7 @@ class MDN_reg_class(Model):
 
     def custom_loss(self, x_train,y_true):
         tfd_mog=self.call(x_train)
-        log_liks=tfd_mog.log_prob(y_true)
+        log_liks=tfd_mog.log_prob(y_true[0])
         log_lik=K.mean(log_liks)
         return -log_lik
 
