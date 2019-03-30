@@ -14,6 +14,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-batch_size', type=int, default=256)
 parser.add_argument('-lr', type=float, default=0.0005, help='learning rate')
 parser.add_argument('-num_epoch', type=int, default=20000)
+parser.add_argument('-activation', type=str, default='tanh')
 opt = parser.parse_args()
 print(device_lib.list_local_devices())
 
@@ -84,7 +85,7 @@ x_test = nzr_x_train.get_nzdval(x_test) # normalize test input
 
 if __name__ =='__main__':
     K.set_session(sess)
-    M = MDN_reg_class(_x_dim=1, _y_dim=2, _k=20, _hids=[128, 128], _actv=tf.nn.tanh,
+    M = MDN_reg_class(_x_dim=1, _y_dim=2, _k=20, _hids=[128, 128], _actv=opt.activation,
                       _sig_max=1.0, _SCHEDULE_SIG_MAX=True, _l2_reg_coef=1e-5,
                       _sess=sess, _VERBOSE=False)
 

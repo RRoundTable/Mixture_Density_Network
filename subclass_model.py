@@ -189,17 +189,17 @@ class MDN_reg_class(Model):
             if idx==0:
                 model.add(Dense(hid, name="hidden_layer_" + str(idx),
                                 kernel_regularizer=l2(self.l2_reg_coef),
-                                dtype=tf.float32,input_shape=(None,self.x_dim)))
+                                dtype=tf.float32,input_shape=(None,self.x_dim), activation=self.actv))
             else:
                 model.add(Dense(hid, name="hidden_layer_"+str(idx),
-                            kernel_regularizer=l2(self.l2_reg_coef), dtype=tf.float32))
+                            kernel_regularizer=l2(self.l2_reg_coef), dtype=tf.float32, activation=self.actv))
 
         return model
 
     def phi_network(self):
         model = Sequential(name="PhiLayer")
         model.add(Dense(self.k, kernel_initializer=tfrni(stddev=0.01),
-                        bias_initializer=tfci(0),kernel_regularizer=l2(self.l2_reg_coef), dtype=tf.float32,activation='tanh'))
+                        bias_initializer=tfci(0),kernel_regularizer=l2(self.l2_reg_coef), dtype=tf.float32,activation=self.actv))
         # softmax 과정
         model.add(Softmax(axis=1))
         return model
@@ -208,14 +208,14 @@ class MDN_reg_class(Model):
         model=Sequential(name="Mu")
         model.add(Dense(self.k*self.y_dim, kernel_initializer=tfrni(stddev=0.01),
                         bias_initializer=tfrui(minval=-1, maxval=1),
-                        kernel_regularizer=l2(self.l2_reg_coef), dtype=tf.float32, activation='tanh'))
+                        kernel_regularizer=l2(self.l2_reg_coef), dtype=tf.float32, activation=self.actv))
         model.add(Reshape((self.y_dim, self.k)))
         return model
 
     def logvar_network(self):
         model=Sequential(name="LogVar")
         model.add(Dense(self.k*self.y_dim, kernel_initializer=tfrni(stddev=0.01),
-                        bias_initializer=tfci(0), kernel_regularizer=l2(self.l2_reg_coef),dtype=tf.float32, activation='tanh'))
+                        bias_initializer=tfci(0), kernel_regularizer=l2(self.l2_reg_coef),dtype=tf.float32, activation=self.actv))
         model.add(Reshape((self.y_dim, self.k)))
         return model
 
