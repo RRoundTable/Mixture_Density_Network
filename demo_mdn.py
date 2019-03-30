@@ -45,6 +45,7 @@ def train(model, optimizer, x_train, y_train, x_test, epoch, batch_size):
         r_idx = np.random.permutation(n_train)[:batch_size]
         x_batch, y_batch = x_train[r_idx, :], y_train[r_idx, :]  # current batch
         # Optimize the network
+
         loss=_train([x_batch,y_batch])
         print("= epoch : {} loss {} =".format(e,loss[0]))
 
@@ -89,4 +90,4 @@ if __name__ =='__main__':
     # plot_model(M, to_file='model.png')
     M(x_train[:100])
     # train
-    train(M, optimizer, x_train, y_train, x_test, 20000, 256)
+    train(M, optimizer, x_train, y_train, x_test, 20000, 64)

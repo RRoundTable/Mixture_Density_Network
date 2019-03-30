@@ -107,7 +107,7 @@ class MDN_reg_class(Model):
         tfd_mog=self.call(x_train)
         log_liks=tfd_mog.log_prob(y_true)
         log_lik=K.mean(log_liks)
-        return -log_lik*100
+        return -log_lik
 
     # # Plot results
     def plot_result(self, _x_test,epoch, _title='MDN result', _fontsize=18,
