@@ -29,6 +29,9 @@ MDN을 이용하여, explainable variance와 unexplainable variance을 구하여
 
 ### explainable/ unexplainable variance
 
+expainable variance란 training data를 더 수집하면 개선할 수 있는 uncertainty를 의미한다.
+
+반면에 unexplainable variance는 data자체의 noise로 training data를 더 수집하여도 개선할 수 없다.
 
 ![epoch0](./variance/epoch_0.png)
 
