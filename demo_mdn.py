@@ -12,7 +12,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-batch_size', type=int, default=256)
-parser.add_argument('-lr', type=float, default=0.0005, help='learning rate')
+parser.add_argument('-lr', type=float, default=0.001, help='learning rate')
 parser.add_argument('-num_epoch', type=int, default=20000)
 parser.add_argument('-activation', type=str, default='tanh')
 opt = parser.parse_args()
