@@ -99,6 +99,6 @@ if __name__ =='__main__':
     else :
         optimizer = Adam(opt.lr)
     # plot_model(M, to_file='model.png')
-    M(x_train[:100])
+    M(x_train[:opt.batch_size])
     # train
     train(M, optimizer, x_train, y_train, x_test, opt.num_epoch, opt.batch_size)

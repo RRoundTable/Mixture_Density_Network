@@ -191,15 +191,15 @@ class MDN_reg_class(Model):
                 model.add(Dense(hid, name="hidden_layer_" + str(idx),
                                 kernel_regularizer=l2(self.l2_reg_coef),
                                 dtype=tf.float32,
-                                input_shape=(None,self.x_dim),
+                                input_shape=(self.batch_size,self.x_dim),
                                 activation=self.actv))
-                model.add(BatchNormalization())
+                # model.add(BatchNormalization())
             else:
                 model.add(Dense(hid, name="hidden_layer_"+str(idx),
                             kernel_regularizer=l2(self.l2_reg_coef),
                                 dtype=tf.float32,
                                 activation=self.actv))
-                model.add(BatchNormalization())
+                # model.add(BatchNormalization())
 
         return model
 
