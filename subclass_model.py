@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import tensorflow as tf
-from tensorflow.python.keras.layers import Input,Dense, Reshape,Softmax, Lambda, Multiply,multiply
+from tensorflow.python.keras.layers import Input,Dense, Reshape,Softmax, Lambda, multiply, BatchNormalization
 from tensorflow.python.keras.models import Model, Sequential
 from tensorflow.python.keras.regularizers import l2
 from tensorflow.python.keras import backend as K
@@ -46,9 +46,6 @@ class MDN_reg_class(Model):
         self.layer_logvar=self.logvar_network()
         #########################################
         self.VERBOSE = _VERBOSE
-        # Check parameters
-        # self.check_params()
-        # Initialize parameters
         K.set_session(_sess)
 
 
@@ -196,11 +193,13 @@ class MDN_reg_class(Model):
                                 dtype=tf.float32,
                                 input_shape=(None,self.x_dim),
                                 activation=self.actv))
+                model.add(BatchNormalization())
             else:
                 model.add(Dense(hid, name="hidden_layer_"+str(idx),
                             kernel_regularizer=l2(self.l2_reg_coef),
                                 dtype=tf.float32,
                                 activation=self.actv))
+                model.add(BatchNormalization())
 
         return model
 
@@ -210,7 +209,7 @@ class MDN_reg_class(Model):
                         bias_initializer=tfci(0),
                         kernel_regularizer=l2(self.l2_reg_coef),
                         dtype=tf.float32,activation=None))
-        # softmax 과정
+        model.add(BatchNormalization())
         model.add(Softmax(axis=1))
         return model
 
@@ -221,6 +220,7 @@ class MDN_reg_class(Model):
                         kernel_regularizer=l2(self.l2_reg_coef),
                         dtype=tf.float32,
                         activation=None))
+        model.add(BatchNormalization())
         model.add(Reshape((self.y_dim, self.k)))
         return model
 
@@ -231,6 +231,7 @@ class MDN_reg_class(Model):
                         kernel_regularizer=l2(self.l2_reg_coef),
                         dtype=tf.float32,
                         activation=None))
+        model.add(BatchNormalization())
         model.add(Reshape((self.y_dim, self.k)))
         return model
 
