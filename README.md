@@ -22,6 +22,7 @@ MDN을 이용하여, explainable variance와 unexplainable variance을 구하여
 
 ![epoch0](./result/epoch_0.png)
 
+- 16000 epoch
 
 ![epoch_16000](./result/epoch_16000.png)
 
@@ -33,8 +34,11 @@ expainable variance란 training data를 더 수집하면 개선할 수 있는 un
 
 반면에 unexplainable variance는 data자체의 noise로 training data를 더 수집하여도 개선할 수 없다.
 
+- 0 epoch
+
 ![epoch0](./variance/epoch_0.png)
 
+- 16000 epoch
 
 ![epoch_16000](./variance/epoch_16000.png)
 
