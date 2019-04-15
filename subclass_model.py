@@ -50,15 +50,16 @@ class MDN_reg_class(Model):
 
 
     def call(self,x):
-        net=self.layer_hidden(x)  # shape=[N, hids[0]]
+        net = self.layer_hidden(x)  # shape=[N, hids[0]]
         # GMM element
-        phi=self.layer_phi(net) # Weighted Value : [N,self.k]
-        mu=self.layer_mu(net) # mean : [N, self.y_dim, self.k]
-        logvar=self.layer_logvar(net) # variance : [N, self.y_dim, self.k]
+        phi = self.layer_phi(net) # Weighted Value : [N,self.k]
+        mu = self.layer_mu(net) # mean : [N, self.y_dim, self.k]
+        logvar = self.layer_logvar(net) # variance : [N, self.y_dim, self.k]
         if self.sig_max==0:
-            var=K.exp(logvar)
+            var = K.exp(logvar)
         else:
-            var=self.sig_max*self.sig_rate*K.sigmoid(logvar)
+            var = self.sig_max * self.sig_rate * K.sigmoid(logvar)
+        var = Lambda((lambda x: x + 0.01))(var)
         # # GMM distribution
         outputs=Lambda(self.distribution, output_shape=[self.y_dim], name="Mixture_density", trainable=False)([phi, mu, var])
         return outputs
@@ -85,44 +86,46 @@ class MDN_reg_class(Model):
         mu=self.layer_mu(net) # [N, self.y_dim, self.k]
         logvar=self.layer_logvar(net)  # [N, self.y_dim, self.k]
         if self.sig_max==0:
-            var=K.exp(logvar)
+            var = K.exp(logvar)
         else:
-            var=self.sig_max*self.sig_rate*K.sigmoid(logvar)
-        phi=K.expand_dims(phi,1)
+            var = self.sig_max*self.sig_rate*K.sigmoid(logvar)
+        phi = K.expand_dims(phi,1)
 
-        EVs=K.sum(multiply([phi,var]),axis=2)
+        EVs = K.sum(multiply([phi,var]),axis=2)
         # EVs=K.sum(EVs,axis=1)
 
-        mu_average=K.sum(multiply([phi,mu]),axis=2)
-        mu_diff_sq=K.square(mu-K.expand_dims(mu_average,2))
+        mu_average = K.sum(multiply([phi,mu]),axis=2)
+        mu_diff_sq = K.square(mu-K.expand_dims(mu_average,2))
 
-        VEs=K.sum(multiply([phi,mu_diff_sq]), axis=2)
+        VEs = K.sum(multiply([phi,mu_diff_sq]), axis=2)
         # VEs=K.sum(VEs,axis=1)
         return K.eval(EVs), K.eval(VEs)
 
     def custom_loss(self, x_train,y_true):
-        tfd_mog=self.call(x_train)
-        log_liks=tfd_mog.log_prob(y_true)
-        log_lik=tf.reduce_mean(log_liks)
+        tfd_mog = self.call(x_train)
+        log_liks = tfd_mog.log_prob(y_true)
+        log_lik = tf.reduce_mean(log_liks)
         return -log_lik
 
     # # Plot results
     def plot_result(self, _x_test,epoch, _title='MDN result', _fontsize=18,
-                    _figsize=(15, 5), _wspace=0.1, _hspace=0.05, _sig_rate=1.0, _pi_th=0.0,
+                    _figsize=(15, 5), _wspace=0.1, _hspace=0.05, _sig_rate=1.0, _pi_th=0.1,
                     _x_train=None, _y_train=None,
                     _ylim=[-3, +3]):
         # sample
-        self.sig_rate=_sig_rate
-        distribution=self.call(_x_test)
-        y_sample=K.eval(K.squeeze(distribution.sample(1),0))
+        self.sig_rate = _sig_rate
+        distribution = self.call(_x_test)
+        y_sample = K.eval(K.squeeze(distribution.sample(1),0))
         net = self.layer_hidden(_x_test)
         phi = K.eval(self.layer_phi(net))  # [N,self.k]
         mu = K.eval(self.layer_mu(net))  # [N, self.y_dim, self.k]
         logvar = K.eval(self.layer_logvar(net))  # [N, self.y_dim, self.k]
-        if self.sig_max==0:
-            var=K.exp(logvar)
+        if self.sig_max == 0:
+            var = K.exp(logvar)
+            var = K.eval(var)
         else:
             var=self.sig_max*self.sig_rate*K.sigmoid(logvar)
+            var = K.eval(var)
         # plot per each output dimensions (self.y_dim)
         nr, nc = 1, self.y_dim
         if nc > 2: nc = 2  # Upper limit on the number of columns
@@ -137,16 +140,19 @@ class MDN_reg_class(Model):
             if _x_train is not None:
                 plt.plot(_x_train[:, 0], _y_train[:, i], 'k.')
             plt.plot(_x_test[:, 0], y_sample[:, i], 'rx')  # plot samples per each dimension
-            # for j in range(self.k):  # per each mixture, plot variance
-            #     idx = np.where(phi[:, j] < _pi_th)[0]
-            #     if idx:
-            #         plt.fill_between(_x_test[idx, 0], mu[idx, i, j] - 2 * np.sqrt(var[idx, i, j]),
-            #                      mu[idx, i, j] + 2 * np.sqrt(var[idx, i, j]),
-            #                      facecolor='k', interpolate=True, alpha=0.05)
-            #     idx = np.where(phi[:, j] > _pi_th)[0]
-            #     plt.fill_between(_x_test[idx, 0], mu[idx, i, j] - 2 * np.sqrt(var[idx, i, j]),
-            #                  mu[idx, i, j] + 2 * np.sqrt(var[idx, i, j]),
-            #                  facecolor=colors[j], interpolate=True, alpha=0.3)
+            for j in range(self.k):  # per each mixture, plot variance
+                idx = np.where(phi[:, j] < _pi_th)[0]
+                if len(idx) > 0:
+                    plt.fill_between(_x_test[idx, 0],
+                                     mu[idx, i, j] - 2 * np.sqrt(var[idx, i, j]),
+                                     mu[idx, i, j] + 2 * np.sqrt(var[idx, i, j]),
+                                     facecolor='k', interpolate=True, alpha=0.05)
+                idx = np.where(phi[:, j] > _pi_th)[0]
+                if len(idx) > 0:
+                    plt.fill_between(_x_test[idx, 0],
+                                     mu[idx, i, j] - 2 * np.sqrt(var[idx, i, j]),
+                                     mu[idx, i, j] + 2 * np.sqrt(var[idx, i, j]),
+                                     facecolor=colors[j], interpolate=True, alpha=0.3)
             for j in range(self.k):  # per each mixture, plot mu
                 idx = np.where(phi[:, j] > _pi_th)[0]
                 plt.plot(_x_test[:, 0], mu[:, i, j], '-', color=[0.8, 0.8, 0.8], linewidth=1)
@@ -162,9 +168,8 @@ class MDN_reg_class(Model):
     def plot_variances(self, _x_test,epoch,_title='blue:Var[E[y|x]] / red:E[Var[y|x]]', _fontsize=18,
                        _figsize=(15, 5), _wspace=0.1, _hspace=0.05):
         # Plot EV and VE
-
-        self.sig_rate=1.0
-        EVs, VEs=self.get_Variance(_x_test)
+        self.sig_rate = 1.0
+        EVs, VEs = self.get_Variance(_x_test)
         VEs = 0.1 * VEs  # scale V[E[y|x]] to match that of E[V[y|x]]
         # plot per each output dimensions (self.y_dim)
         nr, nc = 1, self.y_dim
@@ -214,7 +219,7 @@ class MDN_reg_class(Model):
         return model
 
     def mu_network(self):
-        model=Sequential(name="Mu")
+        model = Sequential(name="Mu")
         model.add(Dense(self.k*self.y_dim, kernel_initializer=tfrni(stddev=0.01),
                         bias_initializer=tfrui(minval=-1, maxval=1),
                         kernel_regularizer=l2(self.l2_reg_coef),
@@ -225,7 +230,7 @@ class MDN_reg_class(Model):
         return model
 
     def logvar_network(self):
-        model=Sequential(name="LogVar")
+        model = Sequential(name="LogVar")
         model.add(Dense(self.k*self.y_dim, kernel_initializer=tfrni(stddev=0.01),
                         bias_initializer=tfci(0),
                         kernel_regularizer=l2(self.l2_reg_coef),
