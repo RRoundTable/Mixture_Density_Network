@@ -13,6 +13,17 @@ MDN을 이용하여, explainable variance와 unexplainable variance을 구하여
 
 특히 , MDN은 single output을 predict하는 것이 아니라, output의 probabiltiy distribution을 predict한다.
 
+## Precautions
+
+### unstable loss
+
+학습시 상당히 불안정한 loss(nan)을 배출하는 모습을 보입니다.
+
+이를 해결하기 위해서 'selu' activation을 사용하였습니다.
+
+### underfitting issue
+
+batch_normalization을 이용하여 개선하였습니다.
 
 ## result
 
