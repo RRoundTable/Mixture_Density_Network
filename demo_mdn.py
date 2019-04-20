@@ -59,8 +59,8 @@ def train(model, optimizer, x_train, y_train, x_test, epoch, batch_size):
         print("= epoch : {} loss {} =".format(e,loss[0]))
 
         # plot result
-        if e%2000==0:
-            model.plot_result(x_test,e,_x_train=x_train, _y_train=y_train)
+        if e % 50 == 0:
+            model.plot_result(x_test, e, _x_train=x_train, _y_train=y_train)
             model.plot_variances(x_test,e)
 
 

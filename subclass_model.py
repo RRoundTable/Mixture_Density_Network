@@ -239,7 +239,3 @@ class MDN_reg_class(Model):
         model.add(BatchNormalization())
         model.add(Reshape((self.y_dim, self.k)))
         return model
-
-
-
-
