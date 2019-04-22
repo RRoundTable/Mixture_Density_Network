@@ -7,8 +7,6 @@ from tensorflow.python.keras.models import Model, Sequential
 from tensorflow.python.keras.regularizers import l2
 from tensorflow.python.keras import backend as K
 from tensorflow.python.keras import Model
-
-
 import tensorflow_probability as tfp
 
 tfd = tfp.distributions
@@ -16,7 +14,6 @@ tfd = tfp.distributions
 tfrni = tf.random_normal_initializer
 tfci = tf.constant_initializer
 tfrui = tf.random_uniform_initializer
-
 
 class MDN_reg_class(Model):
     def __init__(self,_x_dim=2,_y_dim=1,_k=5,_hids=[32,32],_actv=tf.nn.tanh,
@@ -45,7 +42,6 @@ class MDN_reg_class(Model):
         #########################################
         self.VERBOSE = _VERBOSE
         K.set_session(_sess)
-
 
     def call(self, x):
         """Feedforward

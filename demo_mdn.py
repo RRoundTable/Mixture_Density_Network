@@ -30,14 +30,12 @@ tf.set_random_seed(seed=1)
 np.random.seed(seed=1)
 sess = gpu_sess()
 
-
 def train(model, optimizer, x_train, y_train, x_test, epoch, batch_size):
     # placeholder
     x_shape, y_shape = list(x_train.shape), list(y_train.shape)
     x_shape[0], y_shape[0]= None, None
     _x_batch=K.placeholder(name='x', shape=x_shape)
     _y_batch=K.placeholder(name='y', shape=y_shape)
-
     loss = model.custom_loss(_x_batch, _y_batch)
     variables = model.variables
     updates = optimizer.get_updates(params=variables,loss=loss)
@@ -50,20 +48,15 @@ def train(model, optimizer, x_train, y_train, x_test, epoch, batch_size):
             model.sig_rate = iter_rate_0to1
         else:
             model.sig_rate = iter_rate_0to1
-
         r_idx = np.random.permutation(n_train)[:batch_size]
         x_batch, y_batch = x_train[r_idx, :], y_train[r_idx, :]  # current batch
         # Optimize the network
-
         loss=_train([x_batch,y_batch])
         print("= epoch : {} loss {} =".format(e,loss[0]))
-
         # plot result
         if e % 50 == 0:
             model.plot_result(x_test, e, _x_train=x_train, _y_train=y_train)
             model.plot_variances(x_test,e)
-
-
 
 # Training data
 x_min,x_max,n_train_half,y_max,var_scale = 0,100,1000,100,1.0 # 0,100,1000,100,0.5
@@ -83,7 +76,6 @@ y_train = nzr(y_train).nzd_data # normalize training output
 max_iter = 20000
 x_test = np.linspace(x_min,x_max,500, dtype=np.float32).reshape((-1,1))
 x_test = nzr_x_train.get_nzdval(x_test) # normalize test input
-
 
 if __name__ =='__main__':
     K.set_session(sess)
