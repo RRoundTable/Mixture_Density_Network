@@ -24,9 +24,7 @@ class MDN_reg_class(Model):
                  _l2_reg_coef=1e-3,_batch_size=64,_sess=None,
                  _VERBOSE=True):
         super(MDN_reg_class, self).__init__()
-
         # Parse arguments
-        # self.name = _name
         self.x_dim = _x_dim
         self.y_dim = _y_dim
         self.k = _k
@@ -49,7 +47,11 @@ class MDN_reg_class(Model):
         K.set_session(_sess)
 
 
-    def call(self,x):
+    def call(self, x):
+        """Feedforward
+        :param x: input data
+        :return: Mixture distribution
+        """
         net = self.layer_hidden(x)  # shape=[N, hids[0]]
         # GMM element
         phi = self.layer_phi(net) # Weighted Value : [N,self.k]
@@ -60,15 +62,15 @@ class MDN_reg_class(Model):
         else:
             var = self.sig_max * self.sig_rate * K.sigmoid(logvar)
         var = Lambda((lambda x: x + 0.01))(var)
-        # # GMM distribution
+        # GMM distribution
         outputs=Lambda(self.distribution, output_shape=[self.y_dim], name="Mixture_density", trainable=False)([phi, mu, var])
         return outputs
 
-    def distribution(self,element):
+    def distribution(self, element):
         """
-        element[0] : phi
-        element[1] : mu
-        element[2] : var
+        element[0](tensor) : phi
+        element[1](tensor) : mu
+        element[2](tensor) : var
         :return: sample from mixture model
         """
         Mus = tf.unstack(tf.transpose(element[1], [2, 0, 1]))
@@ -80,7 +82,11 @@ class MDN_reg_class(Model):
         tfd_mog=tfd.Mixture(cat=cat, components=comps)
         return tfd_mog
 
-    def get_Variance(self,x):
+    def get_Variance(self, x):
+        """ Compute variances
+        :param x: input data
+        :return: unexplainable variance, explainable variance
+        """
         net=self.layer_hidden(x)
         phi=self.layer_phi(net) # [N,self.k]
         mu=self.layer_mu(net) # [N, self.y_dim, self.k]
@@ -90,28 +96,29 @@ class MDN_reg_class(Model):
         else:
             var = self.sig_max*self.sig_rate*K.sigmoid(logvar)
         phi = K.expand_dims(phi,1)
-
         EVs = K.sum(multiply([phi,var]),axis=2)
         # EVs=K.sum(EVs,axis=1)
-
         mu_average = K.sum(multiply([phi,mu]),axis=2)
         mu_diff_sq = K.square(mu-K.expand_dims(mu_average,2))
-
         VEs = K.sum(multiply([phi,mu_diff_sq]), axis=2)
         # VEs=K.sum(VEs,axis=1)
         return K.eval(EVs), K.eval(VEs)
 
-    def custom_loss(self, x_train,y_true):
+    def custom_loss(self, x_train, y_true):
+        """Negative loglikelihood
+        :param x_train: x_train
+        :param y_true:  y_train
+        :return: negative loglikelihood
+        """
         tfd_mog = self.call(x_train)
         log_liks = tfd_mog.log_prob(y_true)
         log_lik = tf.reduce_mean(log_liks)
         return -log_lik
 
     # # Plot results
-    def plot_result(self, _x_test,epoch, _title='MDN result', _fontsize=18,
-                    _figsize=(15, 5), _wspace=0.1, _hspace=0.05, _sig_rate=1.0, _pi_th=0.1,
-                    _x_train=None, _y_train=None,
-                    _ylim=[-3, +3]):
+    def plot_result(self, _x_test, epoch, _title='MDN result', _fontsize=18,
+                    _figsize=(15, 5), _wspace=0.1, _hspace=0.05, _sig_rate=1.0,
+                    _pi_th=0.1, _x_train=None, _y_train=None, _ylim=[-3, +3]):
         # sample
         self.sig_rate = _sig_rate
         distribution = self.call(_x_test)
@@ -188,7 +195,6 @@ class MDN_reg_class(Model):
             plt.title('[%d]-th dimension' % (i + 1), fontsize=13)
         plt.savefig("./variance/epoch_{}.png".format(epoch))
 
-    # trainable layer
     def hidden_layer(self):
         model = Sequential(name="HiddenLayer")
         for idx, hid in enumerate(self.hids):
@@ -198,14 +204,11 @@ class MDN_reg_class(Model):
                                 dtype=tf.float32,
                                 input_shape=(self.batch_size,self.x_dim),
                                 activation=self.actv))
-                # model.add(BatchNormalization())
             else:
                 model.add(Dense(hid, name="hidden_layer_"+str(idx),
                             kernel_regularizer=l2(self.l2_reg_coef),
                                 dtype=tf.float32,
                                 activation=self.actv))
-                # model.add(BatchNormalization())
-
         return model
 
     def phi_network(self):
